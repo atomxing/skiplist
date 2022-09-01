@@ -194,8 +194,11 @@ void SkipList<K, V>::load_file() {
         std::cout << "key:" << *key << "value:" << *value << std::endl;
     }
     _file_reader.close();
-}
 
+    // 220831 ylx 修复内存泄漏
+    delete key;
+    delete value;
+}
 
 
 
