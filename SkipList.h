@@ -207,7 +207,30 @@ int SkipList<K, V>::size() {
 }
 
 
+// tool
+template<typename K, typename V>
+void SkipList<K, V>::get_key_value_from_string(const std::string& str, std::string* key, std::string* value) {
 
+    if(!is_valid_string(str)) {
+        return;
+    }
+    *key = str.substr(0, str.find(delimiter));
+    *value = str.substr(str.find(delimiter)+1, str.length());
+}
+
+// tool
+template<typename K, typename V>
+bool SkipList<K, V>::is_valid_string(const std::string& str) {
+
+    if (str.empty()) {
+        return false;
+    }
+    // 没有找到冒号":"，也不是所要的字符串数据
+    if (str.find(delimiter) == std::string::npos) {
+        return false;
+    }
+    return true;
+}
 
 
 #endif //SKIPLIST_SKIPLIST_H
