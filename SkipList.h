@@ -398,7 +398,15 @@ SkipList<K, V>::~SkipList() {
     if (_file_reader.is_open()) {
         _file_reader.close();
     }
-    delete _header;
+
+    //delete _header;   // bug   memory leaks
+    // Fix memory leaks   20220901 ylx
+    Node<K, V>* current = _header;
+    while(current) {
+        Node<K, V>* tmp = current;
+        current = current->forward[0];
+        delete tmp;
+    }
 }
 
 // 待插入的节点随机生成一个高度
