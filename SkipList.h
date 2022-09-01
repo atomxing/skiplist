@@ -276,5 +276,53 @@ void SkipList<K, V>::delete_element(K key) {
 }
 
 
+// 搜寻查找节点
+/*
+                           +------------+
+                           |  select 60 |
+                           +------------+
+level 4     +-->1+                                                      100
+                 |
+                 |
+level 3         1+-------->10+------------------>50+           70       100
+                                                   |
+                                                   |
+level 2         1          10         30         50|           70       100
+                                                   |
+                                                   |
+level 1         1    4     10         30         50|           70       100
+                                                   |
+                                                   |
+level 0         1    4   9 10         30   40    50+-->60      70       100
+*/
+template<typename K, typename V>
+bool SkipList<K, V>::search_element(K key) {
+
+    std::cout << "search_element-----------------" << std::endl;
+    Node<K, V> *current = _header;
+
+    // 从最高层开始找
+    for (int i = _skip_list_level; i >= 0; i--) {
+        while (current->forward[i] && current->forward[i]->get_key() < key) {
+            current = current->forward[i];
+        }
+    }
+
+    // 到达第0层，并将指针推进到右边的节点，我们搜索这个节点
+    current = current->forward[0];
+
+    // 相等，找到了这个节点
+    if (current and current->get_key() == key) {
+        std::cout << "Found key: " << key << ", value: " << current->get_value() << std::endl;
+        return true;
+    }
+
+    std::cout << "Not Found Key:" << key << std::endl;
+    return false;
+}
+
+
+
+
 
 #endif //SKIPLIST_SKIPLIST_H
