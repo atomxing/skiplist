@@ -405,7 +405,8 @@ SkipList<K, V>::~SkipList() {
 template<typename K, typename V>
 int SkipList<K, V>::get_random_level(){
 
-    int k = 1;
+    // fix bug 20220901 ylx
+    int k = 0;
     while (rand() % 2) {
         k++;
     }
