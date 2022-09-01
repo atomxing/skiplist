@@ -276,13 +276,8 @@ void SkipList<K, V>::delete_element(K key) {
     current = current->forward[0];
     if (current != NULL && current->get_key() == key) {
 
-        // 从底层开始，在每一层删除当前节点---因为最底层一定有待删除的节点
-        for (int i = 0; i <= _skip_list_level; i++) {
-
-            // 如果在第i层，没有这个节点，则跳出for循环，再往上的层次也不会有这个节点
-            if (update[i]->forward[i] != current)
-                break;
-
+        // 直接获得被删除节点的最高层级，然后在低层级不断找到prev（前一个节点）
+        for (int i = current->node_level; i >= 0; --i) {
             update[i]->forward[i] = current->forward[i];
         }
 
