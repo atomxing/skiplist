@@ -176,6 +176,28 @@ void SkipList<K, V>::display_list() {
 }
 
 
+// 将数据存到文件里
+// 只存了单链表
+template<typename K, typename V>
+void SkipList<K, V>::dump_file() {
+
+    std::cout << "dump_file-----------------" << std::endl;
+    _file_writer.open(STORE_FILE);
+    Node<K, V> *node = this->_header->forward[0];
+
+    while (node != NULL) {
+        _file_writer << node->get_key() << ":" << node->get_value() << "\n";
+        std::cout << node->get_key() << ":" << node->get_value() << ";\n";
+        node = node->forward[0];
+    }
+
+    _file_writer.flush();
+    _file_writer.close();
+    return ;
+}
+
+
+
 // 加载数据，不断调用insert，将文件里的单链表插入成跳表
 template<typename K, typename V>
 void SkipList<K, V>::load_file() {
