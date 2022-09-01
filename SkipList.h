@@ -27,6 +27,7 @@ public:
     int insert_element(K, V);
     void display_list();
     bool search_element(K);
+    int search_range(K, K);
     void delete_element(K);
     void dump_file();
     void load_file();
@@ -337,6 +338,39 @@ bool SkipList<K, V>::search_element(K key) {
 
     std::cout << "Not Found Key:" << key << std::endl;
     return false;
+}
+
+// 范围查找
+template<typename K, typename V>
+int SkipList<K, V>::search_range(K left, K right) {
+
+    std::cout << "search element between " << left << " and " << right<< "-----------------" << std::endl;
+    Node<K, V> *current = _header;
+
+    int _result_count = 0;
+
+    // 从最高层开始
+    for (int i = _skip_list_level; i >= 0; i--) {
+        while (current->forward[i] && current->forward[i]->get_key() < left) {
+            current = current->forward[i];
+        }
+    }
+
+    // 到达第0层，并将指针推进到右边的节点，我们搜索这个节点
+    current = current->forward[0];
+
+    // 相等，找到了这个节点
+    while (current and current->get_key() <= right) {
+        std::cout << "Found key: " << current->get_key() << ", value: " << current->get_value() << std::endl;
+        current = current->forward[0];
+        _result_count++;
+    }
+
+    if(_result_count == 0){
+        std::cout << "Not Found! No element in this range!" << std::endl;
+    }
+
+    return _result_count;
 }
 
 
