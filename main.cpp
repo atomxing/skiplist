@@ -1,5 +1,5 @@
 #include <iostream>
-#include "skiplist.h"
+#include "SkipList.h"
 #define FILE_PATH "./store/dumpFile"
 
 int main() {
