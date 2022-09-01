@@ -233,4 +233,48 @@ bool SkipList<K, V>::is_valid_string(const std::string& str) {
 }
 
 
+// 删除的原理也不难，先找到要删除的节点，记录prev节点数组，然后删除
+template<typename K, typename V>
+void SkipList<K, V>::delete_element(K key) {
+
+    mtx.lock();
+    Node<K, V> *current = this->_header;
+    Node<K, V> *update[_max_level+1];
+    memset(update, 0, sizeof(Node<K, V>*)*(_max_level+1));
+
+    // 从最高层开始
+    for (int i = _skip_list_level; i >= 0; i--) {
+        while (current->forward[i] !=NULL && current->forward[i]->get_key() < key) {
+            current = current->forward[i];
+        }
+        update[i] = current;
+    }
+
+    current = current->forward[0];
+    if (current != NULL && current->get_key() == key) {
+
+        // 从底层开始，在每一层删除当前节点---因为最底层一定有待删除的节点
+        for (int i = 0; i <= _skip_list_level; i++) {
+
+            // 如果在第i层，没有这个节点，则跳出for循环，再往上的层次也不会有这个节点
+            if (update[i]->forward[i] != current)
+                break;
+
+            update[i]->forward[i] = current->forward[i];
+        }
+
+        // 去除没有节点元素的层
+        while (_skip_list_level > 0 && _header->forward[_skip_list_level] == 0) {
+            _skip_list_level --;
+        }
+
+        std::cout << "Successfully deleted key "<< key << std::endl;
+        _element_count --;
+    }
+    mtx.unlock();
+    return;
+}
+
+
+
 #endif //SKIPLIST_SKIPLIST_H
