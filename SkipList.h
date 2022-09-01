@@ -122,8 +122,9 @@ int SkipList<K, V>::insert_element(const K key, const V value) {
         return 1;
     }
 
-        // 如果current是NULL，意味着我们已经到达了本级的终点。
-        // 如果当前的键不等于键，意味着我们必须在update[0]和当前节点之间插入节点。
+    // 如果current是NULL，意味着我们已经到达了本级的终点。
+    // 如果当前的键不等于键，意味着我们必须在update[0]和当前节点之间插入节点。
+    // fix 20220831 ylx
     else if (current == NULL || current->get_key() != key ) {
 
         // 给节点生成一个随机等级
