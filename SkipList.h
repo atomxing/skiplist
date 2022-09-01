@@ -200,6 +200,13 @@ void SkipList<K, V>::load_file() {
     delete value;
 }
 
+// 获取当前调表的大小
+template<typename K, typename V>
+int SkipList<K, V>::size() {
+    return _element_count;
+}
+
+
 
 
 
