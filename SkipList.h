@@ -322,7 +322,32 @@ bool SkipList<K, V>::search_element(K key) {
 }
 
 
+// 构造函数
+template<typename K, typename V>
+SkipList<K, V>::SkipList(int max_level) {
 
+    this->_max_level = max_level;
+    this->_skip_list_level = 0;
+    this->_element_count = 0;
+
+    // create header node and initialize key and value to null
+    K k{};
+    V v{};
+    this->_header = new Node<K, V>(k, v, _max_level);
+};
+
+// 析构函数
+template<typename K, typename V>
+SkipList<K, V>::~SkipList() {
+
+    if (_file_writer.is_open()) {
+        _file_writer.close();
+    }
+    if (_file_reader.is_open()) {
+        _file_reader.close();
+    }
+    delete _header;
+}
 
 
 #endif //SKIPLIST_SKIPLIST_H
