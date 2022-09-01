@@ -1,7 +1,7 @@
 #ifndef SKIPLIST_SKIPLIST_H
 #define SKIPLIST_SKIPLIST_H
 
-#include "node.h"
+#include "Node.h"
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
