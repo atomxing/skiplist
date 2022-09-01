@@ -176,6 +176,28 @@ void SkipList<K, V>::display_list() {
 }
 
 
+// 加载数据，不断调用insert，将文件里的单链表插入成跳表
+template<typename K, typename V>
+void SkipList<K, V>::load_file() {
+
+    _file_reader.open(STORE_FILE);
+    std::cout << "load_file-----------------" << std::endl;
+    std::string line;
+    std::string* key = new std::string();
+    std::string* value = new std::string();
+    while (getline(_file_reader, line)) {
+        get_key_value_from_string(line, key, value);
+        if (key->empty() || value->empty()) {
+            continue;
+        }
+        insert_element(*key, *value);
+        std::cout << "key:" << *key << "value:" << *value << std::endl;
+    }
+    _file_reader.close();
+}
+
+
+
 
 
 #endif //SKIPLIST_SKIPLIST_H
