@@ -353,7 +353,7 @@ SkipList<K, V>::SkipList(int max_level) {
     this->_skip_list_level = 0;
     this->_element_count = 0;
 
-    // create header node and initialize key and value to null
+    // fix 20220831 ylx
     K k{};
     V v{};
     this->_header = new Node<K, V>(k, v, _max_level);
