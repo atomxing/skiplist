@@ -158,5 +158,24 @@ int SkipList<K, V>::insert_element(const K key, const V value) {
 }
 
 
+// 打印显示跳表
+template<typename K, typename V>
+void SkipList<K, V>::display_list() {
+
+    std::cout << "\n*****Skip List*****"<<"\n";
+    // 从最底层开始输出
+    for (int i = 0; i <= _skip_list_level; i++) {
+        Node<K, V> *node = this->_header->forward[i];
+        std::cout << "Level " << i << ": ";
+        while (node != NULL) {
+            std::cout << node->get_key() << ":" << node->get_value() << ";";
+            node = node->forward[i];
+        }
+        std::cout << std::endl;
+    }
+}
+
+
+
 
 #endif //SKIPLIST_SKIPLIST_H
