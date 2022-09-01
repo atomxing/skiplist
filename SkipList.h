@@ -349,5 +349,16 @@ SkipList<K, V>::~SkipList() {
     delete _header;
 }
 
+// 待插入的节点随机生成一个高度
+template<typename K, typename V>
+int SkipList<K, V>::get_random_level(){
+
+    int k = 1;
+    while (rand() % 2) {
+        k++;
+    }
+    k = (k < _max_level) ? k : _max_level;
+    return k;
+};
 
 #endif //SKIPLIST_SKIPLIST_H
