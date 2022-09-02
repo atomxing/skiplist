@@ -20,6 +20,7 @@
 * makefile 编译脚本
 * /bin 可执行文件目录
 * /store 数据存盘目录
+* /stress-test 压力测试目录
 
 
 ---
