@@ -287,9 +287,15 @@ void SkipList<K, V>::delete_element(K key) {
             _skip_list_level --;
         }
 
-        std::cout << "Successfully deleted key "<< key << std::endl;
+        // Fix memory leaks 20220901 ylx
         _element_count --;
+        delete current;
+        std::cout << "Successfully deleted key "<< key << std::endl;
     }
+    else {
+        std::cout << "No Such Key" << key << std::endl;
+    }
+
     mtx.unlock();
     return;
 }
