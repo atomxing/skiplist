@@ -15,7 +15,7 @@ int main() {
     skipList.insert_element("18", "wu");
     skipList.insert_element("20", "hello word!");
     skipList.insert_element("64", "竹杖芒鞋轻胜马");
-    skipList.insert_element("64", "谁怕？");
+    skipList.insert_element("65", "谁怕？");
     skipList.insert_element("66", "一蓑烟雨任平生");
 
     skipList.search_range("4", "10");
