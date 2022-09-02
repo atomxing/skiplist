@@ -15,7 +15,7 @@
 * main.cpp 实现的跳表例子
 * Node.h 节点类
 * SkipList.h 跳表类
-* stree_test.sh 压力测试
+* stress_test.sh 压力测试
 * READEME.md 介绍
 * makefile 编译脚本
 * /bin 可执行文件目录
@@ -43,7 +43,7 @@ make
 ```
 
 ```shell
-sh stree_test.sh
+sh stress_test.sh
 ```
 
 
